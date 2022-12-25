@@ -7,7 +7,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "format": "prettier --write {components,pages,functions,styles,public,spots}"
+        "format": "prettier --write **/*.{js,jsx,ts,tsx,scss,json,html}"
     },
     "dependencies": {
         "@geolonia/open-reverse-geocoder": "^0.1.0",
