@@ -7,7 +7,7 @@ const H1 = (
     >
 ) => {
     return (
-        <h1 {...props} className="text-3xl">
+        <h1 {...props} className="mb-3 text-3xl">
             {props.children}
         </h1>
     );
