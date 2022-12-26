@@ -9,7 +9,8 @@ import ModalHeader from "components/common/modal/ModalHeader";
 import Add from "components/edit-event/Add";
 import Section from "components/layout/section/Section";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Event } from "./api/event/types";
 
 export default function Home() {
     const [isShowAdd, setIsShowAdd] = useState(false);
@@ -17,14 +18,35 @@ export default function Home() {
         setIsShowAdd(true);
     };
 
+    const [events, setEvents] = useState<Event[]>([]);
+    useEffect(() => {
+        fetch("/api/event/get")
+            .then((res) => res.json())
+            .then((j) => setEvents(j.events));
+    }, []);
+
     return (
         <div>
             <Section>
                 <H2>イベント一覧</H2>
                 <UnorderedList>
-                    <ListItem>
+                    {/* <ListItem>
                         <Link href="setouchi2023">瀬戸内海一周2023春</Link>
-                    </ListItem>
+                    </ListItem> */}
+                    {events.map((e, i) => {
+                        return (
+                            <ListItem key={i}>
+                                <Link
+                                    href={{
+                                        pathname: `event/${e.eventName}`,
+                                        query: {eventData: JSON.stringify(e)},
+                                    }}
+                                >
+                                    {e.eventName}
+                                </Link>
+                            </ListItem>
+                        );
+                    })}
                 </UnorderedList>
             </Section>
             <Section>

@@ -7,7 +7,10 @@ const H2 = (
     >
 ) => {
     return (
-        <h2 {...props} className="mb-3 text-2xl">
+        <h2
+            {...props}
+            className={(props.className + " " ?? "") + "mb-3 text-2xl"}
+        >
             {props.children}
         </h2>
     );
