@@ -99,7 +99,7 @@ export default function Add() {
                     type="button"
                     tailwindColor="violet"
                     onClick={() => {
-                        fetch("/api/edit-event/add", {
+                        fetch("/api/event/edit/add", {
                             method: "post",
                             body: JSON.stringify({
                                 type: "add",
