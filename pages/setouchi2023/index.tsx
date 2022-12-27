@@ -1,8 +1,8 @@
 import Button from "components/common/Button";
 import H2 from "components/common/headlline/H2";
 import H3 from "components/common/headlline/H3";
-import SpotItem from "components/events/SpotItem";
-import SpotModal, { SpotModalData } from "components/events/SpotModal";
+import SpotItem from "components/event/SpotItem";
+import SpotModal, { SpotModalData } from "components/event/SpotModal";
 import calcDistance from "functions/calcDistance";
 import { useEffect, useState } from "react";
 import spotDatas from "spots/spotDatas";

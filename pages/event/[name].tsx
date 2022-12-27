@@ -1,28 +1,49 @@
 import Button from "components/common/Button";
 import H1 from "components/common/headlline/H1";
 import H2 from "components/common/headlline/H2";
-import SpotItem from "components/events/SpotItem";
-import SpotModal, { SpotModalData } from "components/events/SpotModal";
+import SpotItem from "components/event/SpotItem";
+import SpotModal from "components/event/SpotModal";
 import Section from "components/layout/section/Section";
 import calcDistance from "functions/calcDistance";
 import { useRouter } from "next/router";
-import { Event } from "pages/api/event/types";
+import { Event, Spot } from "pages/api/event/types";
 import { useEffect, useState } from "react";
 
 export default function Home() {
+    const LOCAL_STORAGE_KEY = "eventData";
     type SortByText = "-" | "↑" | "↓";
 
     const router = useRouter();
-    const [event, setEvent] = useState<Event>(
-        JSON.parse(router.query.eventData as string)
-    );
+    const [event, setEvent] = useState<Event>();
+    useEffect(() => {
+        const eventData = router.query.eventData;
+        const localDataStr = localStorage.getItem(LOCAL_STORAGE_KEY) ?? "[]";
+        const localData: Event[] = JSON.parse(localDataStr);
+        const localEventData = localData.find(
+            (e) => e.eventName == router.query.name
+        );
+        if (typeof eventData == "string") {
+            setEvent(JSON.parse(eventData));
+        } else if (localEventData) {
+            setEvent(localEventData);
+        } else {
+            // router.push("/404");
+        }
+    }, [router]);
 
     const [pos, setPos] = useState<GeolocationPosition>();
     const [sortBy, setSortBy] = useState<SortByText>("-");
     const [isModalShow, setIsModalShow] = useState(false);
-    const [spotModalData, setSpotModalData] = useState<SpotModalData>({
-        spotName: "",
-    });
+    const [spotModalData, setSpotModalData] = useState<Spot>();
+
+    useEffect(() => {
+        const prevDataStr = localStorage.getItem(LOCAL_STORAGE_KEY) ?? "[]";
+        const prevData: Event[] = JSON.parse(prevDataStr);
+        if (event && !prevData.find((e) => e.eventName == event.eventName)) {
+            prevData.push(event);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(prevData));
+        }
+    }, [event]);
 
     const getPos = () => {
         navigator.geolocation.getCurrentPosition((p) => {
@@ -54,7 +75,7 @@ export default function Home() {
     const sortSpots = (sortBy: SortByText) => {
         if (pos && sortBy !== "-") {
             const plusMinus = sortBy === "↑" ? -1 : 1;
-            event.spots.sort((x, y) => {
+            event?.spots.sort((x, y) => {
                 return (
                     -plusMinus *
                         calcDistance(
@@ -81,12 +102,12 @@ export default function Home() {
     }, [pos]);
     return (
         <div>
-            <Section>
-                <H1>{event.eventName}</H1>
+            <Section className="mt-3">
+                <H1>{event?.eventName}</H1>
             </Section>
-            <Section className="grid grid-flow-col place-content-start place-items-center gap-3">
-                <div className="grid grid-flow-col place-content-start place-items-center">
-                    <H2 className="mb-0">現在地：</H2>
+            <Section className="grid-col-vertical-center gap-3">
+                <div className="grid-col-vertical-center">
+                    <H2>現在地：</H2>
                     <p>
                         {pos
                             ? `${pos.coords.latitude}, ${pos.coords.longitude}`
@@ -98,8 +119,8 @@ export default function Home() {
                 </div>
             </Section>
             <Section>
-                <div className="mb-3 grid grid-flow-col place-content-start place-items-center gap-3">
-                    <H2 className="mb-0">スポット一覧</H2>
+                <div className="grid-col-vertical-center mb-3 gap-3">
+                    <H2>スポット一覧</H2>
                     <Button
                         onClick={() => {
                             toggleSortBy();
@@ -110,19 +131,14 @@ export default function Home() {
                 </div>
 
                 <div className="grid grid-cols-1 divide-y bg-slate-50 p-0 sm:grid-cols-2 sm:gap-3 sm:divide-none sm:p-3 lg:grid-cols-3 xl:grid-cols-4">
-                    {event.spots.map((d, i) => {
+                    {event?.spots.map((d, i) => {
                         return (
                             <SpotItem
                                 key={i}
-                                name={d.name}
-                                lat={d.latitude}
-                                lng={d.longitude}
-                                currentLat={pos?.coords.latitude}
-                                currentLng={pos?.coords.longitude}
+                                spot={d}
+                                coords={pos?.coords}
                                 onMouseDown={() => {
-                                    setSpotModalData({
-                                        spotName: d.name,
-                                    });
+                                    setSpotModalData(d);
                                     setIsModalShow(true);
                                 }}
                             />
@@ -133,7 +149,8 @@ export default function Home() {
             <SpotModal
                 isShow={isModalShow}
                 setIsShow={setIsModalShow}
-                data={spotModalData}
+                spot={spotModalData}
+                coords={pos?.coords}
             />
         </div>
     );

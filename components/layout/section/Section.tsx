@@ -9,7 +9,7 @@ export default function Section(props: SectionProps) {
     return (
         <div
             {...props}
-            className={props.className + " " + "mb-3 p-3 last:mb-0"}
+            className={(props.className + " " ?? "") + "mb-3 p-3 last:mb-0"}
         ></div>
     );
 }

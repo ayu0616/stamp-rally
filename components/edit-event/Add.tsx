@@ -3,6 +3,7 @@ import InputText from "components/common/form/InputText";
 import H1 from "components/common/headlline/H1";
 import H2 from "components/common/headlline/H2";
 import Section from "components/layout/section/Section";
+import { useRouter } from "next/router";
 import { ReqData } from "pages/api/event/edit/add";
 import { useEffect, useRef, useState } from "react";
 
@@ -12,6 +13,7 @@ export default function Add() {
     const [added, setAdded] = useState(0);
     const spotInputElem = useRef<HTMLInputElement>(null);
     const [composing, setComposing] = useState(false);
+    const router = useRouter();
 
     useEffect(() => spotInputElem.current?.focus(), [added]);
 
@@ -111,7 +113,7 @@ export default function Add() {
                             headers: { "Content-Type": "application/json" },
                         }).then((res) => {
                             if (res.ok) {
-                                location.reload();
+                                router.reload();
                             }
                         });
                     }}

@@ -39,7 +39,7 @@ export default function Home() {
                                 <Link
                                     href={{
                                         pathname: `event/${e.eventName}`,
-                                        query: {eventData: JSON.stringify(e)},
+                                        query: { eventData: JSON.stringify(e) },
                                     }}
                                 >
                                     {e.eventName}
@@ -49,7 +49,7 @@ export default function Home() {
                     })}
                 </UnorderedList>
             </Section>
-            <Section>
+            <Section className="grid-col-vertical-center gap-3">
                 <H2>イベントを追加する</H2>
                 <Button onClick={showAddModal}>追加する</Button>
             </Section>
