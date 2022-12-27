@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import getSpotPositions from "functions/getSpotPositions";
+import getSpotPrefCity from "functions/getSpotPrefCity";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ReqType, Spot } from "../types";
 
@@ -21,6 +22,8 @@ export default async function handler(
 ) {
     const reqData: ReqData = req.body;
     const spotsWithPos: Spot[] = await getSpotPositions(reqData.body.spots);
+    await getSpotPrefCity(spotsWithPos);
+    console.log(spotsWithPos);
     const reqDataWithPos: ReqDataWithPos = {
         type: reqData.type,
         body: {

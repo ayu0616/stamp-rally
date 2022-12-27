@@ -10,13 +10,11 @@ export default (props: {
     coords?: GeolocationCoordinates;
     onMouseDown?: () => void;
 }) => {
-    const [prefecture, setPrefecture] = useState("");
-    const [city, setCity] = useState("");
+    // const [prefecture, setPrefecture] = useState("");
+    // const [city, setCity] = useState("");
 
     openReverseGeocoder([props.spot.longitude, props.spot.latitude]).then(
         (res) => {
-            setPrefecture(res.prefecture);
-            setCity(res.city);
         }
     );
 
@@ -43,7 +41,7 @@ export default (props: {
         >
             <H3>{props.spot.name}</H3>
             <p className="text-xs text-gray-600 group-hover:text-purple-200">
-                {prefecture} {city}
+                {props.spot.prefecture} {props.spot.city}
             </p>
             <Distance className="text-end" distance={distance}></Distance>
         </div>
