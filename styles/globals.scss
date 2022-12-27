@@ -2,6 +2,14 @@
 @import "~tailwindcss/components";
 @import "~tailwindcss/utilities";
 
+@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap');
+
+@layer base {
+    html {
+        font-family: 'BIZ UDPGothic', sans-serif;
+    }
+}
+
 @layer components {
     .input-text {
         @apply w-full px-3 py-2 outline-8 focus:outline-violet-600/80;
@@ -9,5 +17,15 @@
 
     .grid-col-vertical-center {
         @apply grid grid-flow-col place-content-start place-items-center;
+    }
+
+    .btn {
+        &-violet {
+            @apply bg-violet-500 hover:bg-violet-600 focus:ring-violet-900/50 active:bg-violet-700 disabled:bg-violet-400 disabled:text-violet-50;
+        }
+
+        &-gray {
+            @apply bg-gray-500 hover:bg-gray-600 focus:ring-gray-900/50 active:bg-gray-700 disabled:bg-gray-400 disabled:text-gray-50;
+        }
     }
 }

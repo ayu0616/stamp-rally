@@ -65,7 +65,7 @@ export default function Home() {
                 <ModalFooter>
                     <div className="grid grid-flow-col gap-3">
                         <Button
-                            tailwindColor="gray"
+                            tailwindColor="btn-gray"
                             onClick={() => setIsShowAdd(false)}
                         >
                             閉じる
