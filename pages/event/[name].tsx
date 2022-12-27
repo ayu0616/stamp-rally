@@ -151,6 +151,7 @@ export default function Home() {
                 setIsShow={setIsModalShow}
                 spot={spotModalData}
                 coords={pos?.coords}
+                event={event}
             />
         </div>
     );

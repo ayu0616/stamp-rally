@@ -1,9 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import getSpotPositions from "functions/getSpotPositions";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { Spot } from "../types";
-
-type ReqType = "add" | "edit";
+import { ReqType, Spot } from "../types";
 
 export type ReqData = {
     type: ReqType;
@@ -33,11 +31,21 @@ export default async function handler(
 
     const url = process.env.SPREADSHEET_URL;
     if (url) {
-        const r = await fetch(url, {
+        fetch(url, {
             method: "POST",
             body: JSON.stringify(reqDataWithPos),
-        }).then((r) => r.json());
-        res.status(200).json(reqDataWithPos);
+        }).then((r) => {
+            try {
+                r.json().then((j) => {
+                    res.status(200).json(reqDataWithPos);
+                });
+            } catch {
+                r.text().then((t) => {
+                    res.status(400).json({ result: t });
+                });
+            }
+        });
+        // res.end()
     } else {
         res.status(500).json({ result: "SPREADSHEET_URL に不具合があります" });
     }

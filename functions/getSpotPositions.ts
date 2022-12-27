@@ -21,6 +21,7 @@ export default async function getSpotPositions(spots: string[]) {
             latitude: res.data.results[0].geometry.location.lat,
             longitude: res.data.results[0].geometry.location.lng,
             acceptableRadius: 50,
+            stamped: false,
         });
     }
     return data;
