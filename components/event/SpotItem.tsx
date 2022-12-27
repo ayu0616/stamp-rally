@@ -30,13 +30,14 @@ export default (props: {
               )
             : NaN;
 
-    const isNear = distance * 1000 <= props.spot.acceptableRadius;
+    const isNear =
+        distance * 1000 <= props.spot.acceptableRadius && !props.spot.stamped;
 
     return (
         <div
             className={
                 "group bg-white p-3 hover:border-purple-200 hover:bg-purple-500 hover:text-white sm:rounded sm:shadow " +
-                (isNear ? "font-bold text-purple-700 animate-pulse" : "")
+                (isNear ? "animate-pulse font-bold text-purple-700" : "")
             }
             onMouseDown={props.onMouseDown}
         >
