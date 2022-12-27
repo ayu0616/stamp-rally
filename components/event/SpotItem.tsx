@@ -31,16 +31,6 @@ export default (props: {
               )
             : NaN;
 
-    const distanceFormat = (d: number) => {
-        if (!d) {
-            return "";
-        } else if (d < 1) {
-            return round(d * 1000, 0.01);
-        } else {
-            return round(d, 0.01);
-        }
-    };
-
     return (
         <div
             className="group bg-white p-3 hover:border-purple-200 hover:bg-purple-500 hover:text-white sm:rounded sm:drop-shadow"

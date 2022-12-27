@@ -26,16 +26,6 @@ export default (props: {
               )
             : NaN;
 
-    const distanceFormat = (d: number) => {
-        if (!d) {
-            return "";
-        } else if (d < 1) {
-            return round(d * 1000, 0.01);
-        } else {
-            return round(d, 0.01);
-        }
-    };
-
     return (
         <Modal isShow={props.isShow} setIsShow={props.setIsShow}>
             <ModalHeader closeButtonOnClick={() => props.setIsShow(false)}>
