@@ -10,4 +10,14 @@
     .grid-col-vertical-center {
         @apply grid grid-flow-col place-content-start place-items-center;
     }
+
+    .btn {
+        &-violet {
+            @apply bg-violet-500 hover:bg-violet-600 focus:ring-violet-900/50 active:bg-violet-700 disabled:bg-violet-400 disabled:text-violet-50;
+        }
+
+        &-gray {
+            @apply bg-gray-500 hover:bg-gray-600 focus:ring-gray-900/50 active:bg-gray-700 disabled:bg-gray-400 disabled:text-gray-50;
+        }
+    }
 }
