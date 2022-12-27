@@ -18,7 +18,7 @@ export default (props: {
             >
                 {/* modal content */}
                 <div
-                    className="flex max-h-[80%] w-2/3 flex-col justify-between rounded-lg bg-white shadow lg:max-h-[50%] lg:w-1/2"
+                    className="flex max-h-[80%] w-4/5 flex-col justify-between rounded-lg bg-white shadow lg:max-h-[70%] lg:w-1/2"
                     onMouseDown={(e) => e.stopPropagation()}
                 >
                     {/* modal header body footer */}

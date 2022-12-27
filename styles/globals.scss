@@ -3,4 +3,11 @@
 @import "~tailwindcss/utilities";
 
 @layer components {
+    .input-text {
+        @apply w-full px-3 py-2 outline-8 focus:outline-violet-600/80;
+    }
+
+    .grid-col-vertical-center {
+        @apply grid grid-flow-col place-content-start place-items-center;
+    }
 }

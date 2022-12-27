@@ -1,31 +1,33 @@
 import { openReverseGeocoder } from "@geolonia/open-reverse-geocoder";
+import H3 from "components/common/headlline/H3";
 import calcDistance from "functions/calcDistance";
 import round from "functions/round";
+import { Spot } from "pages/api/event/types";
 import { useState } from "react";
+import Distance from "./Distance";
 
 export default (props: {
-    name: string;
-    lat: number;
-    lng: number;
-    currentLat?: number;
-    currentLng?: number;
+    spot: Spot;
+    coords?: GeolocationCoordinates;
     onMouseDown?: () => void;
 }) => {
     const [prefecture, setPrefecture] = useState("");
     const [city, setCity] = useState("");
 
-    openReverseGeocoder([props.lng, props.lat]).then((res) => {
-        setPrefecture(res.prefecture);
-        setCity(res.city);
-    });
+    openReverseGeocoder([props.spot.longitude, props.spot.latitude]).then(
+        (res) => {
+            setPrefecture(res.prefecture);
+            setCity(res.city);
+        }
+    );
 
     const distance =
-        props.currentLat && props.currentLng
+        props.coords?.latitude && props.coords?.longitude
             ? calcDistance(
-                  props.lat,
-                  props.lng,
-                  props.currentLat,
-                  props.currentLng
+                  props.spot.latitude,
+                  props.spot.longitude,
+                  props.coords?.latitude,
+                  props.coords?.longitude
               )
             : NaN;
 
@@ -44,16 +46,11 @@ export default (props: {
             className="group bg-white p-3 hover:border-purple-200 hover:bg-purple-500 hover:text-white sm:rounded sm:drop-shadow"
             onMouseDown={props.onMouseDown}
         >
-            <p className="text-lg">{props.name}</p>
-            <p className="text-xs">
+            <H3>{props.spot.name}</H3>
+            <p className="text-xs text-gray-600 group-hover:text-purple-200">
                 {prefecture} {city}
             </p>
-            <p className="text-end">
-                {distanceFormat(distance)}
-                <span className="text-xs text-gray-600 group-hover:text-purple-200">
-                    {distance < 1 ? "m" : "km"}
-                </span>
-            </p>
+            <Distance className="text-end" distance={distance}></Distance>
         </div>
     );
 };
