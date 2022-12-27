@@ -40,13 +40,20 @@ export default (props: {
                     type: "edit",
                     body: props.event,
                 } as ReqData),
-            }).then(res => {
+            }).then((res) => {
                 if (res.ok) {
-                    
                 }
             });
         }
     };
+
+    const isDisabeld = (() => {
+        if (props.spot) {
+            return distance > props.spot.acceptableRadius;
+        } else {
+            return true;
+        }
+    })();
 
     return (
         <Modal isShow={props.isShow} setIsShow={props.setIsShow}>
@@ -62,7 +69,9 @@ export default (props: {
                             distance={distance}
                         ></Distance>
                     </div>
-                    <Button onClick={pushStamp}>スタンプを押す</Button>
+                    <Button disabled={isDisabeld} onClick={pushStamp}>
+                        スタンプを押す
+                    </Button>
                 </div>
                 {/* <p>
                     {props.spot?.latitude}, {props.spot?.longitude}
