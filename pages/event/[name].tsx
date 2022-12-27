@@ -111,14 +111,12 @@ export default function Home() {
                 <H1>{event?.eventName}</H1>
             </Section>
             <Section className="grid-col-vertical-center gap-3">
-                <div className="grid-col-vertical-center">
-                    <H2>現在地：</H2>
-                    <p>
-                        {pos
-                            ? `${pos.coords.latitude}, ${pos.coords.longitude}`
-                            : ""}
-                    </p>
-                </div>
+                <H2>現在地</H2>
+                <p>
+                    {pos
+                        ? `${pos.coords.latitude}, ${pos.coords.longitude}`
+                        : ""}
+                </p>
                 <div>
                     <Button onClick={getPos}>現在の座標を更新</Button>
                 </div>

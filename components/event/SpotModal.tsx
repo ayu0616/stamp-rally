@@ -73,8 +73,8 @@ export default (props: {
             </ModalHeader>
             <ModalBody>
                 <div className="grid gap-3">
-                    <div className="grid-col-vertical-center">
-                        <H2>目的地までの距離：</H2>
+                    <div className="grid-col-vertical-center gap-3">
+                        <H2>目的地までの距離</H2>
                         <Distance
                             className="text-2xl"
                             distance={distance}
