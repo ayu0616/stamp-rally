@@ -1,0 +1,24 @@
+export default (props: { onClick?: () => void }) => {
+    return (
+        <button
+            onClick={props.onClick}
+            className="flex h-8 w-8 items-center justify-center rounded text-gray-700 hover:bg-gray-200 hover:text-black"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="h-5 w-5"
+                viewBox="0 0 16 16"
+            >
+                <path
+                    fillRule="evenodd"
+                    d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
+                />
+                <path
+                    fillRule="evenodd"
+                    d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
+                />
+            </svg>
+        </button>
+    );
+};
