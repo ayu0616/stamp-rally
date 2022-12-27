@@ -57,11 +57,13 @@ export default (props: {
     };
 
     const isDisabeld = (() => {
-        let disabled = true;
-        if (props.spot && !props.spot.stamped) {
-            disabled = distance * 1000 > props.spot.acceptableRadius;
+        if (!props.coords) {
+            return true;
+        } else if (props.spot && !props.spot.stamped) {
+            return distance * 1000 > props.spot.acceptableRadius;
+        } else {
+            return true;
         }
-        return disabled;
     })();
 
     return (
