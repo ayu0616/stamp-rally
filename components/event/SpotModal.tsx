@@ -1,4 +1,5 @@
 import Button from "components/common/Button";
+import H2 from "components/common/headlline/H2";
 import Modal from "components/common/modal/Modal";
 import ModalBody from "components/common/modal/ModalBody";
 import ModalFooter from "components/common/modal/ModalFooter";
@@ -41,10 +42,16 @@ export default (props: {
                 {props.spot?.name}
             </ModalHeader>
             <ModalBody>
+                <div className="grid-col-vertical-center">
+                    <H2>目的地までの距離：</H2>
+                    <Distance
+                        className="text-2xl"
+                        distance={distance}
+                    ></Distance>
+                </div>
                 <p>
                     {props.spot?.latitude}, {props.spot?.longitude}
                 </p>
-                <Distance distance={distance}></Distance>
             </ModalBody>
             <ModalFooter>
                 <Button
