@@ -4,6 +4,7 @@ import Modal from "components/common/modal/Modal";
 import ModalBody from "components/common/modal/ModalBody";
 import ModalHeader from "components/common/modal/ModalHeader";
 import calcDistance from "functions/calcDistance";
+import { useRouter } from "next/router";
 import { ReqData } from "pages/api/event/edit/edit";
 import { Event, Spot } from "pages/api/event/types";
 import { Dispatch, SetStateAction } from "react";
@@ -16,6 +17,7 @@ export default (props: {
     coords?: GeolocationCoordinates;
     event?: Event;
 }) => {
+    const router = useRouter();
     const distance =
         props.spot && props.coords
             ? calcDistance(
@@ -42,17 +44,24 @@ export default (props: {
                 } as ReqData),
             }).then((res) => {
                 if (res.ok) {
+                    const url = "/event";
+                    router.push(url, {
+                        query: {
+                            name: props.event?.eventName,
+                            eventData: JSON.stringify(props.event),
+                        },
+                    });
                 }
             });
         }
     };
 
     const isDisabeld = (() => {
-        if (props.spot) {
-            return distance * 1000 > props.spot.acceptableRadius;
-        } else {
-            return true;
+        let disabled = true;
+        if (props.spot && !props.spot.stamped) {
+            disabled = distance * 1000 > props.spot.acceptableRadius;
         }
+        return disabled;
     })();
 
     return (

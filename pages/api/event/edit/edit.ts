@@ -22,7 +22,6 @@ export default async function handler(
             body: JSON.stringify(reqData),
         }).then((r) => {
             try {
-                console.log(r.status);
                 return r.json();
             } catch (e) {
                 return r.text();
