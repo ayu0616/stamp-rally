@@ -20,6 +20,8 @@ export default async function getSpotPositions(spots: string[]) {
             name: spot,
             latitude: res.data.results[0].geometry.location.lat,
             longitude: res.data.results[0].geometry.location.lng,
+            prefecture: "",
+            city: "",
             acceptableRadius: 50,
             stamped: false,
         });
