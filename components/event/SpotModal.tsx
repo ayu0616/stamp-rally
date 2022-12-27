@@ -49,7 +49,7 @@ export default (props: {
 
     const isDisabeld = (() => {
         if (props.spot) {
-            return distance > props.spot.acceptableRadius;
+            return distance * 1000 > props.spot.acceptableRadius;
         } else {
             return true;
         }
