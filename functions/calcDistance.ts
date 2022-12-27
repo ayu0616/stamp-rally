@@ -1,3 +1,4 @@
+/**2点間の距離を求める。単位はkm */
 export default (lat1: number, lng1: number, lat2: number, lng2: number) => {
     lat1 = (lat1 * Math.PI) / 180;
     lat2 = (lat2 * Math.PI) / 180;
