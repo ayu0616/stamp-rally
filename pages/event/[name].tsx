@@ -3,6 +3,7 @@ import H1 from "components/common/headlline/H1";
 import H2 from "components/common/headlline/H2";
 import SpotItem from "components/event/SpotItem";
 import SpotModal from "components/event/SpotModal";
+import SpotWrapper from "components/event/SpotWrapper";
 import Section from "components/layout/section/Section";
 import calcDistance from "functions/calcDistance";
 import { useRouter } from "next/router";
@@ -15,6 +16,10 @@ export default function Home() {
 
     const router = useRouter();
     const [event, setEvent] = useState<Event>();
+
+    const stampedSpots = event?.spots.filter((s) => s.stamped);
+    const notStampedSpots = event?.spots.filter((s) => !s.stamped);
+
     useEffect(() => {
         const eventData = router.query.eventData;
         const localDataStr = localStorage.getItem(LOCAL_STORAGE_KEY) ?? "[]";
@@ -120,7 +125,7 @@ export default function Home() {
             </Section>
             <Section>
                 <div className="grid-col-vertical-center mb-3 gap-3">
-                    <H2>スポット一覧</H2>
+                    <H2>スポット</H2>
                     <Button
                         onClick={() => {
                             toggleSortBy();
@@ -129,9 +134,8 @@ export default function Home() {
                         並べ替え {sortBy}
                     </Button>
                 </div>
-
-                <div className="grid grid-cols-1 divide-y bg-slate-50 p-0 sm:grid-cols-2 sm:gap-3 sm:divide-none sm:p-3 lg:grid-cols-3 xl:grid-cols-4">
-                    {event?.spots.map((d, i) => {
+                <SpotWrapper>
+                    {notStampedSpots?.map((d, i) => {
                         return (
                             <SpotItem
                                 key={i}
@@ -144,7 +148,25 @@ export default function Home() {
                             />
                         );
                     })}
+                </SpotWrapper>
+                <div className="my-3">
+                    <H2>訪問済みのスポット</H2>
                 </div>
+                <SpotWrapper>
+                    {stampedSpots?.map((d, i) => {
+                        return (
+                            <SpotItem
+                                key={i}
+                                spot={d}
+                                coords={pos?.coords}
+                                onMouseDown={() => {
+                                    setSpotModalData(d);
+                                    setIsModalShow(true);
+                                }}
+                            />
+                        );
+                    })}
+                </SpotWrapper>
             </Section>
             <SpotModal
                 isShow={isModalShow}
