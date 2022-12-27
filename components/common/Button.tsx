@@ -8,20 +8,6 @@ const Button = (
         HTMLButtonElement
     > & { tailwindColor?: TailwindColor }
 ) => {
-    // const getColorClass = (c: TailwindColor | undefined) => {
-    //     switch (c) {
-    //         case "violet": {
-    //             return "btn-violet";
-    //         }
-    //         case "gray": {
-    //             return "btn-gray";
-    //         }
-    //         default: {
-    //             return "btn-violet";
-    //         }
-    //     }
-    // };
-    // const tailwindColorClass = getColorClass(props.tailwindColor);
     return (
         <button
             {...props}

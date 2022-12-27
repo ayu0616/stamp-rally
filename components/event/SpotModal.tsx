@@ -89,7 +89,7 @@ export default (props: {
             {/* <ModalFooter>
                 <Button
                     onClick={() => props.setIsShow(false)}
-                    tailwindColor="gray"
+                    tailwindColor="btn-gray"
                 >
                     Close
                 </Button>
