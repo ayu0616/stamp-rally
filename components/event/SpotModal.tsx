@@ -35,6 +35,7 @@ export default (props: {
                 (e) => e.name == spotName
             ) as Spot;
             eventSpot.stamp.stamped = true;
+            eventSpot.stamp.timestamp = new Date().toISOString()
 
             fetch("/api/event/edit/edit", {
                 method: "post",
