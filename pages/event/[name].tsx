@@ -74,17 +74,14 @@ export default function Home() {
     const toggleSortBy = () => {
         setSortBy((prev) => {
             switch (prev) {
-                case "-": {
+                case "-":
+                case "↓": {
                     sortSpots("↑");
                     return "↑";
                 }
                 case "↑": {
                     sortSpots("↓");
                     return "↓";
-                }
-                case "↓": {
-                    sortSpots("↑");
-                    return "↑";
                 }
             }
         });
@@ -161,7 +158,7 @@ export default function Home() {
                         </div>
                         <div className="grid-col-vertical-center gap-3">
                             {(() => {
-                                const digit = 10**(-5)
+                                const digit = 10 ** -5;
                                 return pos ? (
                                     <>
                                         <p>
