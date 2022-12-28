@@ -2,7 +2,6 @@ import { openReverseGeocoder } from "@geolonia/open-reverse-geocoder";
 import H3 from "components/common/headlline/H3";
 import calcDistance from "functions/calcDistance";
 import { Spot } from "pages/api/event/types";
-import { useState } from "react";
 import Distance from "./Distance";
 
 export default (props: {
@@ -14,8 +13,7 @@ export default (props: {
     // const [city, setCity] = useState("");
 
     openReverseGeocoder([props.spot.longitude, props.spot.latitude]).then(
-        (res) => {
-        }
+        (res) => {}
     );
 
     const distance =
@@ -34,13 +32,13 @@ export default (props: {
     return (
         <div
             className={
-                "group bg-white p-3 hover:border-purple-200 hover:bg-purple-500 hover:text-white sm:rounded sm:shadow " +
+                "group bg-white p-3 active:border-purple-200 active:bg-purple-500 active:text-white sm:rounded sm:shadow md:hover:border-purple-200 md:hover:bg-purple-500 md:hover:text-white" +
                 (isNear ? "animate-pulse font-bold text-purple-700" : "")
             }
             onMouseDown={props.onMouseDown}
         >
             <H3>{props.spot.name}</H3>
-            <p className="text-xs text-gray-600 group-hover:text-purple-200">
+            <p className="text-xs text-gray-600 group-active:text-purple-200 md:group-hover:text-purple-200">
                 {props.spot.prefecture} {props.spot.city}
             </p>
             <Distance className="text-end" distance={distance}></Distance>

@@ -18,6 +18,9 @@ module.exports = {
                 roman: "upper-roman",
                 "decimal-leading-zero": "decimal-leading-zero",
             },
+            transitionProperty: {
+                accordion: "height padding",
+            },
         },
     },
     plugins: [],

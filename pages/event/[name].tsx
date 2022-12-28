@@ -1,4 +1,9 @@
+import {
+    openReverseGeocoder,
+    ReverseGeocodingResult,
+} from "@geolonia/open-reverse-geocoder";
 import Button from "components/common/Button";
+import CrossIcon from "components/common/CrossIcon";
 import H1 from "components/common/headlline/H1";
 import H2 from "components/common/headlline/H2";
 import SpotItem from "components/event/SpotItem";
@@ -37,9 +42,11 @@ export default function Home() {
     }, [router]);
 
     const [pos, setPos] = useState<GeolocationPosition>();
+    const [geoRes, setGeoRes] = useState<ReverseGeocodingResult>();
     const [sortBy, setSortBy] = useState<SortByText>("-");
     const [isModalShow, setIsModalShow] = useState(false);
     const [spotModalData, setSpotModalData] = useState<Spot>();
+    const [accordionIsOpen, setAccordionIsOpen] = useState(false);
 
     useEffect(() => {
         const prevDataStr = localStorage.getItem(LOCAL_STORAGE_KEY) ?? "[]";
@@ -53,6 +60,11 @@ export default function Home() {
     const getPos = () => {
         navigator.geolocation.getCurrentPosition((p) => {
             setPos(p);
+            openReverseGeocoder([p.coords.longitude, p.coords.latitude]).then(
+                (res) => {
+                    setGeoRes(res);
+                }
+            );
         });
     };
 
@@ -112,13 +124,38 @@ export default function Home() {
             </Section>
             <Section className="grid-col-vertical-center gap-3">
                 <H2>現在地</H2>
-                <p>
-                    {pos
-                        ? `${pos.coords.latitude}, ${pos.coords.longitude}`
-                        : ""}
-                </p>
                 <div>
                     <Button onClick={getPos}>現在の座標を更新</Button>
+                </div>
+            </Section>
+            <Section>
+                <div className="rounded border">
+                    <input
+                        className="peer hidden"
+                        id="pos-accordion"
+                        type="checkbox"
+                        onChange={(e) => {
+                            setAccordionIsOpen(e.currentTarget.checked);
+                        }}
+                        checked={accordionIsOpen}
+                    ></input>
+                    <label
+                        className="flex select-none items-center justify-between bg-slate-50 p-3 transition-[border] peer-checked:border-b duration-700 ease-in-out"
+                        htmlFor="pos-accordion"
+                    >
+                        <p>位置情報を表示する</p>
+                        <CrossIcon className={(accordionIsOpen?"rotate-0":"rotate-[calc(45deg+180deg)]" + " ")+"transition-all duration-700 ease-in-out"} />
+                    </label>
+                    <div className="h-0 overflow-hidden px-3 transition-accordion duration-700 ease-in-out peer-checked:h-[96px] peer-checked:py-6">
+                        <div className="grid-col-vertical-center gap-3">
+                            <p>{geoRes?.prefecture}</p>
+                            <p>{geoRes?.city}</p>
+                        </div>
+                        <div className="grid-col-vertical-center gap-3">
+                            <p>{pos?.coords.latitude},</p>
+                            <p>{pos?.coords.longitude}</p>
+                        </div>
+                    </div>
                 </div>
             </Section>
             <Section>
