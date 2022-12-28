@@ -11,6 +11,7 @@ import SpotModal from "components/event/SpotModal";
 import SpotWrapper from "components/event/SpotWrapper";
 import Section from "components/layout/section/Section";
 import calcDistance from "functions/calcDistance";
+import round from "functions/round";
 import { useRouter } from "next/router";
 import { Event, Spot } from "pages/api/event/types";
 import { useEffect, useState } from "react";
@@ -140,11 +141,18 @@ export default function Home() {
                         checked={accordionIsOpen}
                     ></input>
                     <label
-                        className="flex select-none items-center justify-between bg-slate-50 p-3 transition-[border] peer-checked:border-b duration-700 ease-in-out"
+                        className="flex select-none items-center justify-between bg-slate-50 p-3 transition-[border] duration-700 ease-in-out peer-checked:border-b"
                         htmlFor="pos-accordion"
                     >
                         <p>位置情報を表示する</p>
-                        <CrossIcon className={(accordionIsOpen?"rotate-0":"rotate-[calc(45deg+180deg)]" + " ")+"transition-all duration-700 ease-in-out"} />
+                        <CrossIcon
+                            className={
+                                (accordionIsOpen
+                                    ? "rotate-0"
+                                    : "rotate-[calc(45deg+180deg)]" + " ") +
+                                "transition-all duration-700 ease-in-out"
+                            }
+                        />
                     </label>
                     <div className="h-0 overflow-hidden px-3 transition-accordion duration-700 ease-in-out peer-checked:h-[96px] peer-checked:py-6">
                         <div className="grid-col-vertical-center gap-3">
@@ -152,8 +160,21 @@ export default function Home() {
                             <p>{geoRes?.city}</p>
                         </div>
                         <div className="grid-col-vertical-center gap-3">
-                            <p>{pos?.coords.latitude},</p>
-                            <p>{pos?.coords.longitude}</p>
+                            {(() => {
+                                const digit = 10**(-5)
+                                return pos ? (
+                                    <>
+                                        <p>
+                                            {round(pos.coords.latitude, digit)},
+                                        </p>
+                                        <p>
+                                            {round(pos.coords.longitude, digit)}
+                                        </p>
+                                    </>
+                                ) : (
+                                    <p></p>
+                                );
+                            })()}
                         </div>
                     </div>
                 </div>
