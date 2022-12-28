@@ -23,7 +23,7 @@ export default (props: {
             : NaN;
 
     const isNear =
-        distance * 1000 <= props.spot.acceptableRadius && !props.spot.stamped;
+        distance * 1000 <= props.spot.acceptableRadius && !props.spot.stamp.stamped;
 
     return (
         <div
