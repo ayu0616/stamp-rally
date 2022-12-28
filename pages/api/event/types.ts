@@ -6,7 +6,10 @@ export type Spot = {
     city: string;
     /**acceptableRadiusはメートル単位で指定 */
     acceptableRadius: number;
-    stamped: boolean;
+    stamp: {
+        stamped: boolean;
+        timestamp: string | null;
+    };
 };
 
 export type Event = {

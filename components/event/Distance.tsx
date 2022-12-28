@@ -18,7 +18,7 @@ export default function Distance(props: DistanceProps) {
     return (
         <p className={props.className}>
             {distanceFormat(props.distance)}
-            <span className="text-xs text-gray-600 group-hover:text-purple-200">
+            <span className="text-xs text-gray-600 active:text-purple-200 sm:group-hover:text-purple-200">
                 {props.distance < 1 ? " m" : " km"}
             </span>
         </p>

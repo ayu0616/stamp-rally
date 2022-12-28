@@ -12,10 +12,6 @@ export default (props: {
     // const [prefecture, setPrefecture] = useState("");
     // const [city, setCity] = useState("");
 
-    openReverseGeocoder([props.spot.longitude, props.spot.latitude]).then(
-        (res) => {}
-    );
-
     const distance =
         props.coords?.latitude && props.coords?.longitude
             ? calcDistance(
@@ -27,13 +23,13 @@ export default (props: {
             : NaN;
 
     const isNear =
-        distance * 1000 <= props.spot.acceptableRadius && !props.spot.stamped;
+        distance * 1000 <= props.spot.acceptableRadius && !props.spot.stamp.stamped;
 
     return (
         <div
             className={
                 "group bg-white p-3 active:border-purple-200 active:bg-purple-500 active:text-white sm:rounded sm:shadow md:hover:border-purple-200 md:hover:bg-purple-500 md:hover:text-white" +
-                (isNear ? "animate-pulse font-bold text-purple-700" : "")
+                (isNear ? " animate-pulse font-bold text-purple-700" : "")
             }
             onMouseDown={props.onMouseDown}
         >
