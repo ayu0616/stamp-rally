@@ -12,10 +12,6 @@ export default (props: {
     // const [prefecture, setPrefecture] = useState("");
     // const [city, setCity] = useState("");
 
-    openReverseGeocoder([props.spot.longitude, props.spot.latitude]).then(
-        (res) => {}
-    );
-
     const distance =
         props.coords?.latitude && props.coords?.longitude
             ? calcDistance(
