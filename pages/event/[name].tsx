@@ -153,8 +153,8 @@ export default function Home() {
                     </label>
                     <div className="h-0 overflow-hidden px-3 transition-accordion duration-700 ease-in-out peer-checked:h-[96px] peer-checked:py-6">
                         <div className="grid-col-vertical-center gap-3">
-                            <p>{geoRes?.prefecture}</p>
-                            <p>{geoRes?.city}</p>
+                            <p className="text-xl">{geoRes?.prefecture}</p>
+                            <p className="text-xl">{geoRes?.city}</p>
                         </div>
                         <div className="grid-col-vertical-center gap-3">
                             {(() => {
