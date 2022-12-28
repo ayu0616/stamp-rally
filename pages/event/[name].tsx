@@ -143,7 +143,7 @@ export default function Home() {
                         htmlFor="pos-accordion"
                     >
                         <p>位置情報を表示する</p>
-                        <CrossIcon className={(accordionIsOpen?"rotate-0":"rotate-45" + " ")+"transition-all duration-700 ease-in-out"} />
+                        <CrossIcon className={(accordionIsOpen?"rotate-0":"rotate-[calc(45deg+180deg)]" + " ")+"transition-all duration-700 ease-in-out"} />
                     </label>
                     <div className="h-0 overflow-hidden px-3 transition-accordion duration-700 ease-in-out peer-checked:h-[96px] peer-checked:py-6">
                         <div className="grid-col-vertical-center gap-3">
