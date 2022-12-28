@@ -23,8 +23,8 @@ export default function Home() {
     const router = useRouter();
     const [event, setEvent] = useState<Event>();
 
-    const stampedSpots = event?.spots.filter((s) => s.stamped);
-    const notStampedSpots = event?.spots.filter((s) => !s.stamped);
+    const stampedSpots = event?.spots.filter((s) => s.stamp.stamped);
+    const notStampedSpots = event?.spots.filter((s) => !s.stamp.stamped);
 
     useEffect(() => {
         const eventData = router.query.eventData;

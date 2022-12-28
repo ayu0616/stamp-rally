@@ -23,7 +23,7 @@ export default async function getSpotPositions(spots: string[]) {
             prefecture: "",
             city: "",
             acceptableRadius: 50,
-            stamped: false,
+            stamp: { stamped: false, timestamp: null },
         });
     }
     return data;

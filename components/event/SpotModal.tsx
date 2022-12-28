@@ -34,7 +34,8 @@ export default (props: {
             const eventSpot = props.event.spots.find(
                 (e) => e.name == spotName
             ) as Spot;
-            eventSpot.stamped = true;
+            eventSpot.stamp.stamped = true;
+            eventSpot.stamp.timestamp = new Date().toISOString()
 
             fetch("/api/event/edit/edit", {
                 method: "post",
@@ -59,7 +60,7 @@ export default (props: {
     const isDisabeld = (() => {
         if (!props.coords) {
             return true;
-        } else if (props.spot && !props.spot.stamped) {
+        } else if (props.spot && !props.spot.stamp.stamped) {
             return distance * 1000 > props.spot.acceptableRadius;
         } else {
             return true;
@@ -84,18 +85,7 @@ export default (props: {
                         スタンプを押す
                     </Button>
                 </div>
-                {/* <p>
-                    {props.spot?.latitude}, {props.spot?.longitude}
-                </p> */}
             </ModalBody>
-            {/* <ModalFooter>
-                <Button
-                    onClick={() => props.setIsShow(false)}
-                    tailwindColor="btn-gray"
-                >
-                    Close
-                </Button>
-            </ModalFooter> */}
         </Modal>
     );
 };
