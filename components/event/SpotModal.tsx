@@ -84,18 +84,7 @@ export default (props: {
                         スタンプを押す
                     </Button>
                 </div>
-                {/* <p>
-                    {props.spot?.latitude}, {props.spot?.longitude}
-                </p> */}
             </ModalBody>
-            {/* <ModalFooter>
-                <Button
-                    onClick={() => props.setIsShow(false)}
-                    tailwindColor="btn-gray"
-                >
-                    Close
-                </Button>
-            </ModalFooter> */}
         </Modal>
     );
 };
