@@ -137,6 +137,7 @@ export default function Home() {
                         onChange={(e) => {
                             setAccordionIsOpen(e.currentTarget.checked);
                         }}
+                        checked={accordionIsOpen}
                     ></input>
                     <label
                         className="flex select-none items-center justify-between bg-slate-50 p-3 transition-[border] peer-checked:border-b duration-700 ease-in-out"
