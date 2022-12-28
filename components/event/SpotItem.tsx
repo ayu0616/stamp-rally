@@ -29,7 +29,7 @@ export default (props: {
         <div
             className={
                 "group bg-white p-3 active:border-purple-200 active:bg-purple-500 active:text-white sm:rounded sm:shadow md:hover:border-purple-200 md:hover:bg-purple-500 md:hover:text-white" +
-                (isNear ? "animate-pulse font-bold text-purple-700" : "")
+                (isNear ? " animate-pulse font-bold text-purple-700" : "")
             }
             onMouseDown={props.onMouseDown}
         >
