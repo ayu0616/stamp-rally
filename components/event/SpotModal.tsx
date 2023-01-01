@@ -1,9 +1,9 @@
 import Button from "components/common/Button";
-import H2 from "components/common/headlline/H2";
 import Modal from "components/common/modal/Modal";
 import ModalBody from "components/common/modal/ModalBody";
 import ModalHeader from "components/common/modal/ModalHeader";
 import calcDistance from "functions/calcDistance";
+import formatDate from "functions/formatDate";
 import { useRouter } from "next/router";
 import { ReqData } from "pages/api/event/edit/edit";
 import { Event, Spot } from "pages/api/event/types";
@@ -35,7 +35,7 @@ export default (props: {
                 (e) => e.name == spotName
             ) as Spot;
             eventSpot.stamp.stamped = true;
-            eventSpot.stamp.timestamp = new Date().toISOString()
+            eventSpot.stamp.timestamp = new Date().toISOString();
 
             fetch("/api/event/edit/edit", {
                 method: "post",
@@ -74,6 +74,14 @@ export default (props: {
             </ModalHeader>
             <ModalBody>
                 <div className="grid gap-3">
+                    {props.spot?.stamp.stamped && props.spot.stamp.timestamp ? (
+                        <div>
+                            <p>訪問済み</p>
+                            <p className="text-description">{formatDate(props.spot.stamp.timestamp, "yyyy年MM月dd日 hh時mm分")}</p>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                     <div className="grid-col-vertical-center gap-3">
                         <p className="text-xl sm:text-2xl">距離</p>
                         <Distance

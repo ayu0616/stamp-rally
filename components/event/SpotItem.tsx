@@ -34,7 +34,7 @@ export default (props: {
             onMouseDown={props.onMouseDown}
         >
             <H3>{props.spot.name}</H3>
-            <p className="text-xs text-gray-600 group-active:text-purple-200 md:group-hover:text-purple-200">
+            <p className="text-description group-active:text-purple-200 md:group-hover:text-purple-200">
                 {props.spot.prefecture} {props.spot.city}
             </p>
             <Distance className="text-end" distance={distance}></Distance>

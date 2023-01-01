@@ -28,4 +28,8 @@
             @apply bg-gray-500 hover:bg-gray-600 focus:ring-gray-900/50 active:bg-gray-700 disabled:bg-gray-400 disabled:text-gray-50;
         }
     }
+
+    .text-description {
+        @apply text-xs text-gray-600;
+    }
 }
