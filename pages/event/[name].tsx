@@ -151,7 +151,7 @@ export default function Home() {
                             }
                         />
                     </label>
-                    <div className="h-0 overflow-hidden px-3 transition-accordion duration-700 ease-in-out peer-checked:h-[96px] peer-checked:py-6">
+                    <div className="h-0 overflow-hidden px-3 transition-accordion duration-700 ease-in-out peer-checked:h-[calc(2*24px+24px+28px)] peer-checked:py-6">
                         <div className="grid-col-vertical-center gap-3">
                             <p className="text-xl">{geoRes?.prefecture}</p>
                             <p className="text-xl">{geoRes?.city}</p>
