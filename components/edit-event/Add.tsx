@@ -5,20 +5,43 @@ import H2 from "components/common/headlline/H2";
 import Section from "components/layout/section/Section";
 import { useRouter } from "next/router";
 import { ReqData } from "pages/api/event/edit/add";
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 
-export default function Add() {
-    const [eventName, setEventName] = useState("");
-    const [spots, setSpots] = useState<string[]>([""]);
+export type Props = Partial<{
+    eventName: string;
+    spots: string[];
+    eventNameOnChange: (value: SetStateAction<string>) => void;
+    spotsOnChange: (value: SetStateAction<string[]>) => void;
+}>;
+
+export default function Add(props: Props) {
+    const [eventName, setEventName] = useState(props.eventName ?? "");
+    const [spots, setSpots] = useState<string[]>(props.spots ?? [""]);
     const [added, setAdded] = useState(0);
     const spotInputElem = useRef<HTMLInputElement>(null);
-    const [composing, setComposing] = useState(false);
+    const eventNameInputElem = useRef<HTMLInputElement>(null);
+    const [composing, setComposing] = useState(true);
     const router = useRouter();
 
+    const setEventNameUnited = (value: SetStateAction<string>) => {
+        setEventName(value);
+        props.eventNameOnChange ? props.eventNameOnChange(value) : 0;
+    };
+
+    const setSpotsUnited = (value: SetStateAction<string[]>) => {
+        setSpots(value);
+        props.spotsOnChange ? props.spotsOnChange(value) : 0;
+    };
+
     useEffect(() => spotInputElem.current?.focus(), [added]);
+    useEffect(() => {
+        if (!eventName) {
+            eventNameInputElem.current?.focus();
+        }
+    }, [eventName]);
 
     const addSpotInput = () => {
-        setSpots((prev) => [...prev, ""]);
+        setSpotsUnited((prev) => [...prev, ""]);
         setAdded((prev) => 1 - prev);
     };
 
@@ -31,7 +54,8 @@ export default function Add() {
                 <H2>イベント名</H2>
                 <InputText
                     value={eventName}
-                    onChange={(e) => setEventName(e.currentTarget.value)}
+                    onChange={(e) => setEventNameUnited(e.currentTarget.value)}
+                    // ref={eventNameInputElem}
                 />
             </Section>
             <Section>
@@ -51,7 +75,7 @@ export default function Add() {
                                             : null
                                     }
                                     onChange={(e) =>
-                                        setSpots((prev) => {
+                                        setSpotsUnited((prev) => {
                                             const changedValue =
                                                 e.target.value ?? "";
                                             prev[i] = changedValue;
@@ -74,7 +98,7 @@ export default function Add() {
                                     type="button"
                                     className="bg-slate-50 px-3 py-2 hover:bg-slate-100 active:bg-slate-200 disabled:text-slate-500 disabled:hover:bg-slate-50 disabled:active:bg-slate-50"
                                     onClick={() =>
-                                        setSpots((prev) => [
+                                        setSpotsUnited((prev) => [
                                             ...prev.filter(
                                                 (_, index) => index != i
                                             ),

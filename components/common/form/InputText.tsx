@@ -1,8 +1,9 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, LegacyRef } from "react";
 
 type InputTextProps = {
     value?: string;
     onChange?: ChangeEventHandler<HTMLInputElement>;
+    ref?: LegacyRef<HTMLInputElement>;
 };
 
 export default function InputText(props: InputTextProps) {

@@ -9,10 +9,13 @@ import ModalHeader from "components/common/modal/ModalHeader";
 import Add from "components/edit-event/Add";
 import Section from "components/layout/section/Section";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Event } from "./api/event/types";
 
 export default function Home() {
+    const router = useRouter();
+
     const [isShowAdd, setIsShowAdd] = useState(false);
     const showAddModal = () => {
         setIsShowAdd(true);
@@ -24,6 +27,9 @@ export default function Home() {
             .then((res) => res.json())
             .then((j) => setEvents(j.events));
     }, []);
+
+    const [inputEventName, setInputEventName] = useState("");
+    const [inputSpots, setInputSpots] = useState([""]);
 
     return (
         <div>
@@ -60,7 +66,12 @@ export default function Home() {
                     イベントを追加する
                 </ModalHeader>
                 <ModalBody>
-                    <Add></Add>
+                    <Add
+                        eventName={inputEventName}
+                        spots={inputSpots}
+                        eventNameOnChange={setInputEventName}
+                        spotsOnChange={setInputSpots}
+                    ></Add>
                 </ModalBody>
                 <ModalFooter>
                     <div className="grid grid-flow-col gap-3">
@@ -69,6 +80,21 @@ export default function Home() {
                             onClick={() => setIsShowAdd(false)}
                         >
                             閉じる
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                router.push({
+                                    pathname: "/event/edit/add/",
+                                    query: {
+                                        data: JSON.stringify({
+                                            eventName: inputEventName,
+                                            spots: inputSpots,
+                                        }),
+                                    },
+                                });
+                            }}
+                        >
+                            フルページで開く
                         </Button>
                     </div>
                 </ModalFooter>
