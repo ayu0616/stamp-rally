@@ -19,7 +19,7 @@ const AccordionBody = (props: Props) => {
 
     return (
         <div
-            className="accordion-body max-h-0 overflow-hidden transition-all duration-500 peer-checked:max-h-[100px] h-full"
+            className="accordion-body max-h-0 overflow-hidden transition-all duration-500 peer-checked:max-h-[1000px] h-full"
             ref={elem}
         >
             {props.children}
