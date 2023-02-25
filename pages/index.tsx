@@ -25,7 +25,6 @@ export default function Home(props: Props) {
     const showAddModal = () => {
         setIsShowAdd(true);
     };
-    console.log(props);
 
     const [inputEventName, setInputEventName] = useState("");
     const [inputSpots, setInputSpots] = useState([""]);
