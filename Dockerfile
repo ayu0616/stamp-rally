@@ -3,11 +3,15 @@ FROM node:slim
 WORKDIR /app
 
 COPY package*.json /app/
-RUN npm install
-
 COPY ./ /app/
-RUN npm run build
+RUN npm install \
+    && npm run build
+
+FROM gcr.io/distroless/nodejs18-debian11
+
+COPY --from=0 /app /app
+WORKDIR /app
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["/app/node_modules/next/dist/bin/next", "start"]
