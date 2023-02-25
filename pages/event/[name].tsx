@@ -2,6 +2,9 @@ import {
     openReverseGeocoder,
     ReverseGeocodingResult,
 } from "@geolonia/open-reverse-geocoder";
+import Accordion from "components/common/accordion/Accordion";
+import AccordionBody from "components/common/accordion/AccordionBody";
+import AccordionHeader from "components/common/accordion/AccordionHeader";
 import Button from "components/common/Button";
 import CrossIcon from "components/common/CrossIcon";
 import H1 from "components/common/headlline/H1";
@@ -127,54 +130,46 @@ export default function Home() {
                 </div>
             </Section>
             <Section>
-                <div className="rounded border">
-                    <input
-                        className="peer hidden"
-                        id="pos-accordion"
-                        type="checkbox"
-                        onChange={(e) => {
-                            setAccordionIsOpen(e.currentTarget.checked);
-                        }}
-                        checked={accordionIsOpen}
-                    ></input>
-                    <label
-                        className="flex select-none items-center justify-between bg-slate-50 p-3 transition-[border] duration-700 ease-in-out peer-checked:border-b"
-                        htmlFor="pos-accordion"
-                    >
-                        <p>位置情報を表示する</p>
-                        <CrossIcon
-                            className={
-                                (accordionIsOpen
-                                    ? "rotate-0"
-                                    : "rotate-[calc(45deg+180deg)]" + " ") +
-                                "transition-all duration-700 ease-in-out"
-                            }
-                        />
-                    </label>
-                    <div className="h-0 overflow-hidden px-3 transition-accordion duration-700 ease-in-out peer-checked:h-[calc(2*24px+24px+28px)] peer-checked:py-6">
-                        <div className="grid-col-vertical-center gap-3">
-                            <p className="text-xl">{geoRes?.prefecture}</p>
-                            <p className="text-xl">{geoRes?.city}</p>
+                <Accordion>
+                    <AccordionHeader className="peer-checked:[&_.cross-icon]:rotate-0">
+                        <div className="flex items-center p-4">
+                            <p className="flex-1">位置情報を表示する</p>
+                            <CrossIcon className="cross-icon rotate-[135deg] transition-all duration-500"></CrossIcon>
                         </div>
-                        <div className="grid-col-vertical-center gap-3">
-                            {(() => {
-                                const digit = 10 ** -5;
-                                return pos ? (
-                                    <>
-                                        <p>
-                                            {round(pos.coords.latitude, digit)},
-                                        </p>
-                                        <p>
-                                            {round(pos.coords.longitude, digit)}
-                                        </p>
-                                    </>
-                                ) : (
-                                    <></>
-                                );
-                            })()}
+                    </AccordionHeader>
+                    <AccordionBody>
+                        <div className="p-4">
+                            <div className="grid-col-vertical-center gap-3">
+                                <p className="text-xl">{geoRes?.prefecture}</p>
+                                <p className="text-xl">{geoRes?.city}</p>
+                            </div>
+                            <div className="grid-col-vertical-center gap-3">
+                                {(() => {
+                                    const digit = 10 ** -5;
+                                    return pos ? (
+                                        <>
+                                            <p>
+                                                {round(
+                                                    pos.coords.latitude,
+                                                    digit
+                                                )}
+                                                ,
+                                            </p>
+                                            <p>
+                                                {round(
+                                                    pos.coords.longitude,
+                                                    digit
+                                                )}
+                                            </p>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    );
+                                })()}
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </AccordionBody>
+                </Accordion>
             </Section>
             <Section>
                 <div className="grid-col-vertical-center mb-3 gap-3">
