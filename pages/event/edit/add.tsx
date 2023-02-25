@@ -1,8 +1,13 @@
 import Add, { Props } from "components/edit-event/Add";
-import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
-export default function Home() {
-    const router = useRouter();
-    const props: Props = JSON.parse(router.query.data as string)
+export default function Home(props: Props) {
     return <Add {...props}></Add>;
 }
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+    context
+) => {
+    const props = JSON.parse(context.query.data as string);
+    return { props };
+};
