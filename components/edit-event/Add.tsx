@@ -123,7 +123,7 @@ export default function Add(props: Props) {
             <Section className="flex justify-end">
                 <Button
                     type="button"
-                    tailwindColor="btn-violet"
+                    tailwindcolor="btn-violet"
                     onClick={() => {
                         fetch("/api/event/edit/add", {
                             method: "post",

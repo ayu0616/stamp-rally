@@ -6,14 +6,14 @@ const Button = (
     props: DetailedHTMLProps<
         ButtonHTMLAttributes<HTMLButtonElement>,
         HTMLButtonElement
-    > & { tailwindColor?: TailwindColor }
+    > & { tailwindcolor?: TailwindColor }
 ) => {
     return (
         <button
             {...props}
             className={
                 "rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 " +
-                (props.tailwindColor ?? "btn-violet")
+                (props.tailwindcolor ?? "btn-violet")
             }
         >
             {props.children}
