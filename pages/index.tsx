@@ -8,25 +8,24 @@ import ModalFooter from "components/common/modal/ModalFooter";
 import ModalHeader from "components/common/modal/ModalHeader";
 import Add from "components/edit-event/Add";
 import Section from "components/layout/section/Section";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Event } from "./api/event/types";
 
-export default function Home() {
+type Props = {
+    events: Event[];
+};
+
+export default function Home(props: Props) {
     const router = useRouter();
 
     const [isShowAdd, setIsShowAdd] = useState(false);
     const showAddModal = () => {
         setIsShowAdd(true);
     };
-
-    const [events, setEvents] = useState<Event[]>([]);
-    useEffect(() => {
-        fetch("/api/event/get")
-            .then((res) => res.json())
-            .then((j) => setEvents(j.events));
-    }, []);
+    console.log(props);
 
     const [inputEventName, setInputEventName] = useState("");
     const [inputSpots, setInputSpots] = useState([""]);
@@ -39,7 +38,7 @@ export default function Home() {
                     {/* <ListItem>
                         <Link href="setouchi2023">瀬戸内海一周2023春</Link>
                     </ListItem> */}
-                    {events.map((e, i) => {
+                    {props.events.map((e, i) => {
                         return (
                             <ListItem key={i}>
                                 <Link
@@ -102,3 +101,13 @@ export default function Home() {
         </div>
     );
 }
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+    const url = process.env.SPREADSHEET_URL;
+    if (url) {
+        const events = (await fetch(url).then((r) => r.json())).events;
+        return { props: { events } };
+    } else {
+        throw Error("SPREADSHEET_URL に不具合があります");
+    }
+};
