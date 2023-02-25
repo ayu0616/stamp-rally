@@ -131,7 +131,10 @@ export default function Home() {
             </Section>
             <Section>
                 <Accordion>
-                    <AccordionHeader className="peer-checked:[&_.cross-icon]:rotate-0">
+                    <AccordionHeader
+                        className="peer-checked:[&_.cross-icon]:rotate-0"
+                        disabled={!pos}
+                    >
                         <div className="flex items-center p-4">
                             <p className="flex-1">位置情報を表示する</p>
                             <CrossIcon className="cross-icon rotate-[135deg] transition-all duration-500"></CrossIcon>

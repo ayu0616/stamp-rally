@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 type Props = {
     children?: React.ReactNode;
     className?: string;
+    disabled?: boolean;
 };
 
 const AccordionHeader = (props: Props) => {
@@ -21,14 +22,16 @@ const AccordionHeader = (props: Props) => {
         <>
             <input
                 id={id}
-                className="peer hidden"
+                className="accordion-input peer hidden"
                 type="checkbox"
                 checked={show}
                 onChange={(e) => setShow(e.currentTarget.checked)}
+                disabled={props.disabled}
             />
             <label
                 className={
-                    "accordion-header block bg-slate-50 " + props.className
+                    "accordion-header block bg-slate-50 opacity-100 transition-all duration-500 peer-checked:bg-slate-200 peer-disabled:opacity-50 " +
+                    props.className
                 }
                 htmlFor={id}
             >

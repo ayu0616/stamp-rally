@@ -6,7 +6,7 @@ type Props = {
 
 const Accordion = (props: Props) => {
     return (
-        <div className="accordion rounded border">
+        <div className="accordion rounded border group" >
             {props.children}
         </div>
     );

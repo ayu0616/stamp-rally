@@ -6,20 +6,22 @@ type Props = {
 
 const AccordionBody = (props: Props) => {
     const elem = useRef<HTMLDivElement>(null);
-    // const checkbox = elem.current?.parentElement?.querySelector("input");
-    // checkbox?.addEventListener("change", () => {
-    //     if (checkbox?.checked) {
-    //         elem.current?.classList.remove("max-h-0");
-    //         elem.current?.classList.add("max-h-[100px]");
-    //     } else {
-    //         elem.current?.classList.remove("max-h-[100px]");
-    //         elem.current?.classList.add("max-h-0");
-    //     }
-    // });
+    elem.current?.parentElement
+        ?.querySelector(".accordion-input")
+        ?.addEventListener("change", (e) => {
+            if (elem.current) {
+                if ((e.currentTarget as HTMLInputElement | null)?.checked) {
+                    elem.current.style.maxHeight =
+                        elem.current.scrollHeight + "px";
+                } else {
+                    elem.current.style.maxHeight = "0px";
+                }
+            }
+        });
 
     return (
         <div
-            className="accordion-body max-h-0 overflow-hidden transition-all duration-500 peer-checked:max-h-[1000px] h-full"
+            className={`accordion-body duration-500 h-full max-h-0 overflow-hidden transition-all`}
             ref={elem}
         >
             {props.children}
