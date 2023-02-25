@@ -35,9 +35,6 @@ export default function Home(props: Props) {
             <Section>
                 <H2>イベント一覧</H2>
                 <UnorderedList>
-                    {/* <ListItem>
-                        <Link href="setouchi2023">瀬戸内海一周2023春</Link>
-                    </ListItem> */}
                     {props.events.map((e, i) => {
                         return (
                             <ListItem key={i}>
