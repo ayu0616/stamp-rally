@@ -30,7 +30,7 @@ const AccordionHeader = (props: Props) => {
             />
             <label
                 className={
-                    "accordion-header block bg-slate-50 opacity-100 transition-all duration-500 peer-checked:bg-slate-200 peer-disabled:opacity-50 " +
+                    "accordion-header no-select block bg-slate-50 opacity-100 transition-all duration-500 peer-checked:bg-slate-200 peer-disabled:opacity-50 " +
                     props.className
                 }
                 htmlFor={id}

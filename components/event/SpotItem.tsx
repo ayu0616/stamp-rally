@@ -1,4 +1,3 @@
-import { openReverseGeocoder } from "@geolonia/open-reverse-geocoder";
 import H3 from "components/common/headlline/H3";
 import calcDistance from "functions/calcDistance";
 import { Spot } from "pages/api/event/types";
@@ -23,12 +22,13 @@ export default (props: {
             : NaN;
 
     const isNear =
-        distance * 1000 <= props.spot.acceptableRadius && !props.spot.stamp.stamped;
+        distance * 1000 <= props.spot.acceptableRadius &&
+        !props.spot.stamp.stamped;
 
     return (
         <div
             className={
-                "group bg-white p-3 active:border-purple-200 active:bg-purple-500 active:text-white sm:rounded sm:shadow md:hover:border-purple-200 md:hover:bg-purple-500 md:hover:text-white" +
+                "no-select group bg-white p-3 active:border-purple-200 active:bg-purple-500 active:text-white sm:rounded sm:shadow md:hover:border-purple-200 md:hover:bg-purple-500 md:hover:text-white" +
                 (isNear ? " animate-pulse font-bold text-purple-700" : "")
             }
             onMouseDown={props.onMouseDown}

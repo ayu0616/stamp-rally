@@ -32,4 +32,11 @@
     .text-description {
         @apply text-xs text-gray-600;
     }
+
+    .no-select {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
 }

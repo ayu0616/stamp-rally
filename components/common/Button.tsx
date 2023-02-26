@@ -12,7 +12,7 @@ const Button = (
         <button
             {...props}
             className={
-                "rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 " +
+                "no-select rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 " +
                 (props.tailwindcolor ?? "btn-violet")
             }
         >
