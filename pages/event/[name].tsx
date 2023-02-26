@@ -15,6 +15,7 @@ import SpotWrapper from "components/event/SpotWrapper";
 import Section from "components/layout/section/Section";
 import calcDistance from "functions/calcDistance";
 import round from "functions/round";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { Event, Spot } from "pages/api/event/types";
 import { useEffect, useState } from "react";
@@ -50,7 +51,6 @@ export default function Home() {
     const [sortBy, setSortBy] = useState<SortByText>("-");
     const [isModalShow, setIsModalShow] = useState(false);
     const [spotModalData, setSpotModalData] = useState<Spot>();
-    const [accordionIsOpen, setAccordionIsOpen] = useState(false);
 
     useEffect(() => {
         const prevDataStr = localStorage.getItem(LOCAL_STORAGE_KEY) ?? "[]";
@@ -119,7 +119,10 @@ export default function Home() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pos]);
     return (
-        <div>
+        <>
+            <Head>
+                <title>{event?.eventName} - GPSスタンプラリー</title>
+            </Head>
             <Section className="mt-3">
                 <H1>{event?.eventName}</H1>
             </Section>
@@ -226,6 +229,6 @@ export default function Home() {
                 coords={pos?.coords}
                 event={event}
             />
-        </div>
+        </>
     );
 }

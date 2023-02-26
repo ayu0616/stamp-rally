@@ -9,6 +9,7 @@ import ModalHeader from "components/common/modal/ModalHeader";
 import Add from "components/edit-event/Add";
 import Section from "components/layout/section/Section";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -30,7 +31,10 @@ export default function Home(props: Props) {
     const [inputSpots, setInputSpots] = useState([""]);
 
     return (
-        <div>
+        <>
+            <Head>
+                <title>GPSスタンプラリー</title>
+            </Head>
             <Section>
                 <H2>イベント一覧</H2>
                 <UnorderedList>
@@ -94,7 +98,7 @@ export default function Home(props: Props) {
                     </div>
                 </ModalFooter>
             </Modal>
-        </div>
+        </>
     );
 }
 
