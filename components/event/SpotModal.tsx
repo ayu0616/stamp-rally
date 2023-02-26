@@ -73,15 +73,10 @@ export default (props: {
                 {props.spot?.name}
             </ModalHeader>
             <ModalBody>
-                <div className="grid gap-3">
-                    {props.spot?.stamp.stamped && props.spot.stamp.timestamp ? (
-                        <div>
-                            <p>訪問済み</p>
-                            <p className="text-description">{formatDate(props.spot.stamp.timestamp, "yyyy年MM月dd日 hh時mm分")}</p>
-                        </div>
-                    ) : (
-                        <></>
-                    )}
+                <div
+                    className="group grid gap-3"
+                    data-visited={props.spot?.stamp.stamped}
+                >
                     <div className="grid-col-vertical-center gap-3">
                         <p className="text-xl sm:text-2xl">距離</p>
                         <Distance
@@ -89,7 +84,22 @@ export default (props: {
                             distance={distance}
                         ></Distance>
                     </div>
-                    <Button disabled={isDisabeld} onClick={pushStamp}>
+                    <div className="hidden group-data-[visited=true]:block">
+                        <p>訪問済み</p>
+                        <p className="text-description">
+                            {props.spot?.stamp.timestamp
+                                ? formatDate(
+                                      props.spot.stamp.timestamp,
+                                      "yyyy年MM月dd日 hh時mm分"
+                                  )
+                                : ""}
+                        </p>
+                    </div>
+                    <Button
+                        className="block group-data-[visited=true]:hidden"
+                        disabled={isDisabeld}
+                        onClick={pushStamp}
+                    >
                         スタンプを押す
                     </Button>
                 </div>
