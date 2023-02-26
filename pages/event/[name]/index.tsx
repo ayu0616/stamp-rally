@@ -15,36 +15,17 @@ import SpotWrapper from "components/event/SpotWrapper";
 import Section from "components/layout/section/Section";
 import calcDistance from "functions/calcDistance";
 import round from "functions/round";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { Event, Spot } from "pages/api/event/types";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Home(props: { event: Event }) {
     const LOCAL_STORAGE_KEY = "eventData";
     type SortByText = "-" | "↑" | "↓";
 
-    const router = useRouter();
-    const [event, setEvent] = useState<Event>();
-
-    const stampedSpots = event?.spots.filter((s) => s.stamp.stamped);
-    const notStampedSpots = event?.spots.filter((s) => !s.stamp.stamped);
-
-    useEffect(() => {
-        const eventData = router.query.eventData;
-        const localDataStr = localStorage.getItem(LOCAL_STORAGE_KEY) ?? "[]";
-        const localData: Event[] = JSON.parse(localDataStr);
-        const localEventData = localData.find(
-            (e) => e.eventName == router.query.name
-        );
-        if (typeof eventData == "string") {
-            setEvent(JSON.parse(eventData));
-        } else if (localEventData) {
-            setEvent(localEventData);
-        } else {
-            // router.push("/404");
-        }
-    }, [router]);
+    const stampedSpots = props.event?.spots.filter((s) => s.stamp.stamped);
+    const notStampedSpots = props.event?.spots.filter((s) => !s.stamp.stamped);
 
     const [pos, setPos] = useState<GeolocationPosition>();
     const [geoRes, setGeoRes] = useState<ReverseGeocodingResult>();
@@ -55,11 +36,11 @@ export default function Home() {
     useEffect(() => {
         const prevDataStr = localStorage.getItem(LOCAL_STORAGE_KEY) ?? "[]";
         const prevData: Event[] = JSON.parse(prevDataStr);
-        if (event && !prevData.find((e) => e.eventName == event.eventName)) {
-            prevData.push(event);
+        if (props.event && !prevData.find((e) => e.eventName == props.event.eventName)) {
+            prevData.push(props.event);
             localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(prevData));
         }
-    }, [event]);
+    }, [props.event]);
 
     const getPos = () => {
         navigator.geolocation.getCurrentPosition((p) => {
@@ -93,7 +74,7 @@ export default function Home() {
     const sortSpots = (sortBy: SortByText) => {
         if (pos && sortBy !== "-") {
             const plusMinus = sortBy === "↑" ? -1 : 1;
-            event?.spots.sort((x, y) => {
+            props.event?.spots.sort((x, y) => {
                 return (
                     -plusMinus *
                         calcDistance(
@@ -121,10 +102,10 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>{event?.eventName} - GPSスタンプラリー</title>
+                <title>{props.event?.eventName} - GPSスタンプラリー</title>
             </Head>
             <Section className="mt-3">
-                <H1>{event?.eventName}</H1>
+                <H1>{props.event?.eventName}</H1>
             </Section>
             <Section className="grid-col-vertical-center gap-3">
                 <H2>現在地</H2>
@@ -227,8 +208,24 @@ export default function Home() {
                 setIsShow={setIsModalShow}
                 spot={spotModalData}
                 coords={pos?.coords}
-                event={event}
+                event={props.event}
             />
         </>
     );
 }
+
+export const getServerSideProps: GetServerSideProps<{ event?: Event }> = async (
+    context
+) => {
+    const eventData = context.query.eventData;
+    if (typeof eventData == "string") {
+        const event = JSON.parse(eventData);
+        return {
+            props: { event },
+        };
+    } else {
+        return {
+            props: { event: null },
+        };
+    }
+};
