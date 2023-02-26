@@ -96,7 +96,7 @@ export default function Add(props: Props) {
                                 />
                                 <button
                                     type="button"
-                                    className="bg-slate-50 px-3 py-2 hover:bg-slate-100 active:bg-slate-200 disabled:text-slate-500 disabled:hover:bg-slate-50 disabled:active:bg-slate-50"
+                                    className="no-select bg-slate-50 px-3 py-2 hover:bg-slate-100 active:bg-slate-200 disabled:text-slate-500 disabled:hover:bg-slate-50 disabled:active:bg-slate-50"
                                     onClick={() =>
                                         setSpotsUnited((prev) => [
                                             ...prev.filter(
@@ -114,7 +114,7 @@ export default function Add(props: Props) {
                 })}
                 <button
                     type="button"
-                    className="w-full border bg-slate-50 px-3 py-2 text-center hover:bg-slate-100 active:bg-slate-200"
+                    className="no-select w-full border bg-slate-50 px-3 py-2 text-center hover:bg-slate-100 active:bg-slate-200"
                     onClick={addSpotInput}
                 >
                     観光地を増やす
